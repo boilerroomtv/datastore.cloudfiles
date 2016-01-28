@@ -25,10 +25,10 @@ class RackspaceCloudFilesDatastore(Datastore):
         try:
             return self._deserialised_value(self.container.get_object(str(key)))
         except NoSuchObject as e:
-            raise IndexError(str(e))
+            raise KeyError(str(e))
 
     def __setitem__(self, key, value):
-        self.put(key, value)
+        self.container.create(obj_name=str(key), data=self._serialised_value(value), content_type='application/json')
 
     def __contains__(self, key):
         return str(key) in self.container.get_object_names()
@@ -37,7 +37,7 @@ class RackspaceCloudFilesDatastore(Datastore):
         try:
             self.container.delete_object(str(key))
         except NoSuchObject as e:
-            raise IndexError(str(e))
+            raise KeyError(str(e))
 
     def __iter__(self):
         return (Key(name) for name in self.container.get_object_names())
@@ -53,7 +53,7 @@ class RackspaceCloudFilesDatastore(Datastore):
         """
         try:
             return self[key]
-        except IndexError:
+        except KeyError:
             return None
 
     def put(self, key, value):
@@ -62,7 +62,7 @@ class RackspaceCloudFilesDatastore(Datastore):
         :param key: Key naming `value`
         :param value: object to store
         """
-        self.container.create(obj_name=str(key), data=self._serialised_value(value), content_type='application/json')
+        self[key] = value
 
     def contains(self, key):
         return key in self
@@ -74,7 +74,7 @@ class RackspaceCloudFilesDatastore(Datastore):
         """
         try:
             del self[key]
-        except IndexError:
+        except KeyError:
             pass
 
     def query(self, query):
