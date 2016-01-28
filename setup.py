@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='datastore.cloudfiles',
-    version='0.0.1',
+    version='0.0.2',
     packages=[p for p in find_packages() if p.startswith('datastore')],
     namespace_packages=['datastore'],
     install_requires=['datastore>=0.3', 'pyrax>=1.9'],
