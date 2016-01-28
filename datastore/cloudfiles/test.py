@@ -4,7 +4,7 @@ from os import getenv
 import pyrax
 from datastore.core.test.test_basic import TestDatastore
 
-from cloudfiles import RackspaceCloudFilesDatastore
+from __init__ import RackspaceCloudFilesDatastore
 
 
 RACKSPACE_USERNAME = getenv('RACKSPACE_USERNAME')
@@ -28,7 +28,7 @@ class TestRackspaceCloudFilesDatastore(TestDatastore):
 
     def test(self):
         store = RackspaceCloudFilesDatastore(self.container)
-        self.subtest_simple([store], numelems=20)
+        self.subtest_simple([store], numelems=5)
 
 
 if __name__ == '__main__':
