@@ -4,7 +4,7 @@ from os import getenv
 import pyrax
 from datastore.core.test.test_basic import TestDatastore
 
-from __init__ import RackspaceCloudFilesDatastore
+from __init__ import CloudFilesDatastore
 
 
 RACKSPACE_USERNAME = getenv('RACKSPACE_USERNAME')
@@ -12,7 +12,7 @@ RACKSPACE_API_KEY = getenv('RACKSPACE_API_KEY')
 RACKSPACE_REGION = getenv('RACKSPACE_REGION')
 
 
-class TestRackspaceCloudFilesDatastore(TestDatastore):
+class TestCloudFilesDatastore(TestDatastore):
 
     container_name = 'datastore-test'
 
@@ -27,7 +27,7 @@ class TestRackspaceCloudFilesDatastore(TestDatastore):
         self.container.delete(del_objects=True)
 
     def test(self):
-        store = RackspaceCloudFilesDatastore(self.container)
+        store = CloudFilesDatastore(self.container)
         self.subtest_simple([store], numelems=5)
 
 

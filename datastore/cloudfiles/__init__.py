@@ -4,7 +4,7 @@ from datastore.core import Datastore, Key
 from pyrax.exceptions import NoSuchObject
 
 
-class RackspaceCloudFilesDatastore(Datastore):
+class CloudFilesDatastore(Datastore):
     """Rackspace Cloud Files datastore implemented over the Pyrax library.
     """
 
